@@ -17,8 +17,16 @@ namespace QuoteService
             CreateWebHostBuilder(args).Build().Run();
         }
 
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>();
+        public static IWebHostBuilder CreateWebHostBuilder(string[] args)
+        {
+            var builder = WebHost.CreateDefaultBuilder(args);
+            var path = Environment.GetEnvironmentVariable("ConfigPath");
+            if (!string.IsNullOrEmpty(path))
+            {
+                builder.ConfigureAppConfiguration(config => config.AddKeyPerFile(path, false));
+            }
+            builder.UseStartup<Startup>();
+            return builder;
+        }
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace QuoteService.Controllers
 {
@@ -13,9 +14,10 @@ namespace QuoteService.Controllers
     {
         private readonly QuoteContext _context;
 
-        public QuotesController(QuoteContext context)
+        public QuotesController(QuoteContext context, IConfiguration config)
         {
             _context = context;
+            //var s = config["ConnectionString"];
         }
 
         [HttpGet("rand")]

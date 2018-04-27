@@ -27,7 +27,6 @@ namespace QuoteService
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<QuoteContext>(options => options.UseSqlServer(Configuration["ConnectionString"]));
-
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
