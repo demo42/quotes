@@ -21,11 +21,11 @@ namespace QuoteService
         {
             var builder = WebHost.CreateDefaultBuilder(args);
             
-            var path = "/etc/quotes-secrets";
-            //var path = Environment.GetEnvironmentVariable("ConfigPath");
-            if (!string.IsNullOrEmpty(path))
+            //var path = "/etc/quotes-secrets";
+            var path = Environment.GetEnvironmentVariable("ConfigPath");
+            if (string.IsNullOrEmpty(path))
             {
-                builder.ConfigureAppConfiguration(config => config.AddKeyPerFile(path, false));
+                builder.ConfigureAppConfiguration(config => config.AddKeyPerFile("/etc/quotes-secrets", false));
             }
             builder.UseStartup<Startup>();
             return builder;
