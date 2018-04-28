@@ -1,6 +1,5 @@
 FROM microsoft/dotnet-nightly:2.1-aspnetcore-runtime AS base
 WORKDIR /app
-
 FROM microsoft/dotnet-nightly:2.1-sdk AS build
 WORKDIR /src
 COPY src/QuoteService/QuoteService.csproj src/QuoteService/
@@ -16,4 +15,6 @@ RUN dotnet publish QuoteService.csproj -c Release -o /app
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app .
+ARG A_CONNECTIONSTRING
+ENV CONNECTIONSTRING=${A_CONNECTIONSTRING}
 ENTRYPOINT ["dotnet", "QuoteService.dll"]
