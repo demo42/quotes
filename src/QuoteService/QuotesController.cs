@@ -13,11 +13,17 @@ namespace QuoteService.Controllers
     public class QuotesController : ControllerBase
     {
         private readonly QuoteContext _context;
+        private Version _version;
 
         public QuotesController(QuoteContext context, IConfiguration config)
         {
             _context = context;
-            //var s = config["ConnectionString"];
+            var envVersion = new Version(Environment.GetEnvironmentVariable("VERSION"));
+            if (envVersion != null){
+                _version=new Version(envVersion.ToString());
+            } else{
+                _version=new Version("0.0.0");
+            }
         }
 
         [HttpGet("rand")]
@@ -26,7 +32,7 @@ namespace QuoteService.Controllers
             Quote quote = await _context.Quotes
                                  .OrderBy(x => Guid.NewGuid())
                                  .FirstAsync();
-            quote.Attribution += "-v1";
+            quote.Attribution += _version.ToString();
             return quote;
         }
 
