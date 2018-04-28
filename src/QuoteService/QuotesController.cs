@@ -23,9 +23,11 @@ namespace QuoteService.Controllers
         [HttpGet("rand")]
         public async Task<ActionResult<Quote>> Get()
         {
-            return await _context.Quotes
+            Quote quote = await _context.Quotes
                                  .OrderBy(x => Guid.NewGuid())
                                  .FirstAsync();
+            quote.Attribution += "-v1";
+            return quote;
         }
 
         [HttpGet("rand/{number}")]
