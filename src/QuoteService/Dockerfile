@@ -12,6 +12,9 @@ RUN dotnet build QuoteService.csproj -c Release -o /app
 FROM build AS publish
 RUN dotnet publish QuoteService.csproj -c Release -o /app
 
+#FROM build AS test
+
+
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app .
