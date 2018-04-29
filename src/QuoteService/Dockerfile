@@ -1,6 +1,8 @@
-FROM microsoft/dotnet-nightly:2.1-aspnetcore-runtime AS base
+ARG REGISTRY_NAME
+FROM ${REGISTRY_NAME}baseimages/microsoft/dotnet/aspnetcore-runtime:2.1-nightly AS base
 WORKDIR /app
-FROM microsoft/dotnet-nightly:2.1-sdk AS build
+
+FROM ${REGISTRY_NAME}baseimages/microsoft/dotnet/sdk:2.1-nightly AS build
 WORKDIR /src
 COPY src/QuoteService/QuoteService.csproj src/QuoteService/
 COPY NuGet.Config .
