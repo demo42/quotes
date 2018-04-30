@@ -3,6 +3,7 @@ FROM ${REGISTRY_NAME}baseimages/microsoft/aspnetcore-runtime:linux-2.1 AS base
 WORKDIR /app
 ARG REGISTRY_NAME
 ENV REGISTRY_NAME=${REGISTRY_NAME}
+ENV LEAKY_CONNECTIONSTRING="a value you don't want to leak"
 
 FROM ${REGISTRY_NAME}baseimages/microsoft/dotnet-sdk:linux-2.1 AS build
 WORKDIR /src
