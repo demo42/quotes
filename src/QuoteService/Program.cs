@@ -26,7 +26,7 @@ namespace QuoteService
             // if (string.IsNullOrEmpty(path))
             // {
             var secretsDir = "/etc/quotes-secrets";
-            if(!System.Directory.Exists(secretsDir))
+            if(!System.IO.Directory.Exists(secretsDir))
             {
                 throw new InvalidOperationException("No secret volume mounted");
             }
