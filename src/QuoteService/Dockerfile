@@ -23,7 +23,7 @@ RUN dotnet publish QuoteService.csproj -c Release -o /app
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app .
-ARG A_CONNECTIONSTRING
-ENV CONNECTIONSTRING=${A_CONNECTIONSTRING}
+#ARG A_CONNECTIONSTRING
+#ENV CONNECTIONSTRING=${A_CONNECTIONSTRING}
 ENV VERSION=0.0.11
 ENTRYPOINT ["dotnet", "QuoteService.dll"]

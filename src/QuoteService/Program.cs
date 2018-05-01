@@ -22,11 +22,18 @@ namespace QuoteService
             var builder = WebHost.CreateDefaultBuilder(args);
             
             //var path = "/etc/quotes-secrets";
-            var path = Environment.GetEnvironmentVariable("ConfigPath");
-            if (string.IsNullOrEmpty(path))
+            // var path = Environment.GetEnvironmentVariable("ConfigPath");
+            // if (string.IsNullOrEmpty(path))
+            // {
+            var secretsDir = "/etc/quotes-secrets";
+            if(!System.Directory.Exists(secretsDir))
             {
-                builder.ConfigureAppConfiguration(config => config.AddKeyPerFile("/etc/quotes-secrets", false));
+                throw new InvalidOperationException("No secret volume mounted");
             }
+            
+            builder.ConfigureAppConfiguration(config => config.AddKeyPerFile(secretsDir, true));
+
+            //}
             builder.UseStartup<Startup>();
             return builder;
         }
