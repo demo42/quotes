@@ -31,9 +31,7 @@ namespace QuoteService
                 throw new InvalidOperationException("No secret volume mounted");
             }
 
-            
             builder.ConfigureAppConfiguration(config => config.AddKeyPerFile(secretsDir, false));
-            
 
             //}
             builder.UseStartup<Startup>();
