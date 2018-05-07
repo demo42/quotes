@@ -23,5 +23,5 @@ RUN dotnet publish QuoteService.csproj -c Release -o /app
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app .
-ENV VERSION=0.0.15
+ENV VERSION=0.0.16
 ENTRYPOINT ["dotnet", "QuoteService.dll"]
