@@ -12,31 +12,29 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace QuoteService
-{
-    public class Startup
-    {
-        public Startup(IConfiguration configuration)
-        {
+namespace QuoteService{
+    public class Startup{
+        // This method gets called by the runtime. Use this method to add services to the container.
+        public void ConfigureServices(IServiceCollection services){
+            
+            services.AddDbContext<QuoteContext>(
+                options => options.UseSqlServer(
+                    Configuration["ConnectionString"]));
+
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+        }
+
+        public Startup(IConfiguration configuration){
             Configuration = configuration;
         }
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
-        {
-            services.AddDbContext<QuoteContext>(options => options.UseSqlServer(Configuration["ConnectionString"]));
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-        }
-
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, QuoteContext context)
-        {
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, QuoteContext context){
             context.Database.EnsureCreated();
 
-            if (env.IsDevelopment())
-            {
+            if (env.IsDevelopment()){
                 app.UseDeveloperExceptionPage();
             }
 
