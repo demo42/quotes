@@ -8,7 +8,7 @@ ENV LEAKY_CONNECTIONSTRING="a value you don't want to leak"
 FROM ${REGISTRY_NAME}baseimages/microsoft/dotnet-sdk:linux-2.1 AS build
 WORKDIR /src
 COPY src/QuoteService/QuoteService.csproj src/QuoteService/
-COPY NuGet.Config .
+
 RUN dotnet restore src/QuoteService/QuoteService.csproj
 COPY . .
 WORKDIR /src/src/QuoteService
