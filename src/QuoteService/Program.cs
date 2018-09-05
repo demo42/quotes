@@ -20,7 +20,7 @@ namespace QuoteService
         public static IWebHostBuilder CreateWebHostBuilder(string[] args)
         {
             var builder = WebHost.CreateDefaultBuilder(args);
-            
+
             var configPath = Environment.GetEnvironmentVariable("ConfigPath");
             if (!string.IsNullOrEmpty(configPath))
             {
