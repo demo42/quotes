@@ -1,5 +1,7 @@
 # Demo 42 - Quotes API
 
+See [deploy/readme.md](../deploy/readme.md) for an overview of demo42
+
 ## Building the image locally
 ```sh
 docker build -t demo42/quotes-api:dev  -f ./src/QuoteService/Dockerfile --build-arg demo42.azurecr.io .
@@ -7,7 +9,7 @@ docker build -t demo42/quotes-api:dev  -f ./src/QuoteService/Dockerfile --build-
 
 ## Building the image with ACR Build
 ```sh
-az acr build -t demo42/quotes-api:{{.Build.ID}} -f ./src/QuoteService/Dockerfile --build-arg REGISTRY_NAME=demo42.azurecr.io .
+az acr build -t demo42/quotes-api:{{.Run.ID}} -f ./src/QuoteService/Dockerfile --build-arg REGISTRY_NAME=demo42.azurecr.io .
 ```
 
 ## Build, Test, Deploy the image(s) with ACR Tasks
@@ -17,7 +19,7 @@ az acr run -f acr-task.yaml  .
 
 ## Create an ACR Task
 
-Get the environment variables from [deploy/readme.md](../deploy/readme.md#Get-the-credentials-from-KeyVault)
+While ACR Tasks are limited to dogfood, get the environment variables from [deploy/readme.md](../deploy/readme.md#Get-the-credentials-from-KeyVault)
 ```sh
 ACR_NAME=demo42
 BRANCH=master
@@ -35,4 +37,8 @@ az acr task create \
   --set-secret REGISTRY_PWD=$ACR_PULL_PWD \
   --git-access-token ${GIT_TOKEN} \
   --registry $ACR_NAME 
+```
+Run the scheduled task
+```sh
+az acr task run -n demo42-quotes-api
 ```
