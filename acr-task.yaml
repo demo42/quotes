@@ -1,0 +1,21 @@
+version: 1.0-preview-1
+steps:
+  - build: >
+      -t {{.Run.Registry}}/demo42/quotes-api:{{.Run.ID}} 
+      -f ./src/quotes/Dockerfile 
+      --build-arg REGISTRY_NAME={{.Run.Registry}}/ 
+      .
+  - push: 
+    - {{.Run.Registry}}/demo42/quotes-api:{{.Run.ID}}
+  - cmd: >
+      cmd.azurecr-test.io/helm:v2.11.0-rc.2 
+      upgrade demo42 ./helm/importantThings 
+      --reuse-values 
+      --set quotesApi.image=${REGISTRY_NAME}demo42/quotes-api:{{.Run.ID}}
+    env:
+      - TENANT={{.Values.TENANT}}
+      - SP={{.Values.SP}}
+      - PASSWORD={{.Values.PASSWORD}}
+      - CLUSTER_RESOURCE_GROUP={{.Values.CLUSTER_RESOURCE_GROUP}}
+      - CLUSTER_NAME={{.Values.CLUSTER_NAME}}
+  
