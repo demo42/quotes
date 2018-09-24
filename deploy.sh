@@ -28,4 +28,3 @@ echo -- helm upgrade demo42 ./helm/importantThings --
 helm upgrade demo42 ./helm/importantThings \
       --reuse-values \
       --set quotesApi.image=$RUN_REGISTRY/demo42/quotes-api:$RUN_ID
-
