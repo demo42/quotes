@@ -27,5 +27,5 @@ helm fetch $RUN_REGISTRYNAME/importantThings
 echo -- helm upgrade demo42 ./helm/importantThings --
 helm upgrade demo42 ./helm/importantThings \
       --reuse-values \
-      --set quotesApi.image=${REGISTRY_NAME}demo42/quotes-api:$RUN_ID
+      --set quotesApi.image=$RUN_REGISTRY/demo42/quotes-api:$RUN_ID
 
