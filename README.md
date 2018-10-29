@@ -4,12 +4,12 @@ See [deploy/readme.md](../deploy/readme.md) for an overview of demo42
 
 ## Building the image locally
 ```sh
-docker build -t demo42/quotes-api:dev  -f ./src/QuoteService/Dockerfile --build-arg demo42.azurecr.io .
+docker build -t demo42/quotes-api:dev  -f ./src/QuoteService/Dockerfile --build-arg REGISTRY_NAME=demo42.azurecr.io/ .
 ```
 
 ## Building the image with ACR Build
 ```sh
-az acr build -t demo42/quotes-api:{{.Run.ID}} -f ./src/QuoteService/Dockerfile --build-arg REGISTRY_NAME=demo42.azurecr.io .
+az acr build -t demo42/quotes-api:{{.Run.ID}} -f ./src/QuoteService/Dockerfile --build-arg REGISTRY_NAME=demo42.azurecr.io/ .
 ```
 
 ## Build, Test, Deploy the image(s) with ACR Tasks
